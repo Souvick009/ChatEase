@@ -263,7 +263,7 @@ class GroupChatActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener { exception ->
                     // Displaying an error message if sending fails
-                    Log.d("buttonSend", exception.toString())
+                    Log.e("buttonSend", exception.toString())
                     Toast.makeText(this@GroupChatActivity, exception.toString(), Toast.LENGTH_LONG).show()
                 }
         } else {

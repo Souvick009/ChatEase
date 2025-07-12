@@ -50,7 +50,6 @@ class GroupsFragment : Fragment() {
         val appStatusTracker = requireActivity().application as AppStatusTracker
 
         appStatusTracker.getGroupLiveData().observe(viewLifecycleOwner) { updatedList ->
-            Log.d("call","updatedList")
             groupList.clear()
             groupList.addAll(updatedList)
             adapter.notifyDataSetChanged()

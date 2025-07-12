@@ -188,7 +188,7 @@ class ChatActivity : AppCompatActivity() {
                         }
 
                         otherUserFCMToken =
-                            snapshot.child("FCMUserToken").getValue(String::class.java) ?: null
+                            snapshot.child("FCMUserToken").getValue(String::class.java)
 
                         // Loading the user's avatar image using Glide library
                         val avatar = snapshot.child("avatar").getValue(String::class.java)
@@ -260,7 +260,7 @@ class ChatActivity : AppCompatActivity() {
 
         var previousLineCount = 2
         var minLines = 1
-        var lineCount = 0
+        var lineCount: Int
         var baseSdp = 50
         val screenDensity = resources.displayMetrics.densityDpi / 160f
         binding.editTextMessage.addTextChangedListener(object : TextWatcher {
@@ -291,7 +291,6 @@ class ChatActivity : AppCompatActivity() {
                 lineCount = binding.editTextMessage.lineCount
                 if (previousLineCount != lineCount) {
                     if (lineCount > minLines) {
-                        Log.d("LINECOUNT", lineCount.toString())
                         val adjustedLineCount = lineCount.coerceIn(minLines, 5)
                         val newSdp = baseSdp + (20 * (adjustedLineCount - 2))
                         val params = binding.chatInputCard.layoutParams

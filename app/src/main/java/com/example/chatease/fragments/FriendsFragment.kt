@@ -47,7 +47,7 @@ class FriendsFragment : Fragment() {
         val toolbar = binding.toolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        Log.w("friendsList",userDataList.toString())
+
         adapter = FriendsUserAdapter(context = requireContext(), userData = userDataList)
         binding.recyclerViewFriends.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewFriends.adapter = adapter

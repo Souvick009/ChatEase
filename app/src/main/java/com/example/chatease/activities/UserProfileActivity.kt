@@ -465,7 +465,6 @@ class UserProfileActivity : AppCompatActivity() {
 
                     if (isDeclined) {
                         CoroutineScope(Dispatchers.Main).launch {
-                            Log.d("test", "changed")
                             binding.addFriendButton.text = "Add Friend"
                             addFriendButtonStatus = "Add Friend"
                         }

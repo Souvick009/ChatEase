@@ -9,7 +9,7 @@ ChatEase allows users to engage in **real-time 1-on-1 and group messaging**, man
 
 ## 🚀 Features
 
-- 🔐 **Secure Authentication** with Firebase (email/phone)
+- 🔐 **Secure Authentication** with Firebase (via email address)
 - 💬 **1-on-1 and Group Messaging** in real time
 - 🧑‍🤝‍🧑 **Friend Management** (add, view, and remove friends)
 - 🖼 **Profile Customization** (image upload, crop with Ucrop, compression)
@@ -40,10 +40,10 @@ ChatEase allows users to engage in **real-time 1-on-1 and group messaging**, man
 
 ## 🤝 Team Contribution
 
-| Member         | Role                                       |
-|----------------|--------------------------------------------|
-| **Rameshwar Mishra** | Frontend development, UI/UX, Firebase integration (UI-side), friend management |
-| **Souvick Sen**       | Complete backend logic – chat flow, group messaging, database structure, authentication flow, FCM integration |
+| Member         | Role                                                                                                          |
+|----------------|---------------------------------------------------------------------------------------------------------------|
+| **Rameshwar Mishra** | Frontend development, UI/UX, Firebase integration (UI-side)                                                   |
+| **Souvick Sen**       | Complete backend logic - Chat Flow, Group Messaging, Database Structure, Authentication Flow, FCM Integration |
 
 ---
 

@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Unregister the callback to avoid memory leaks
+        // Unregistering the callback to avoid memory leaks
         binding.viewpager2MainActivity.unregisterOnPageChangeCallback(pageChangeCallback)
     }
 }

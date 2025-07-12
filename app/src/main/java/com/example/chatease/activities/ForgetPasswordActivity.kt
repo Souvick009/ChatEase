@@ -2,6 +2,7 @@ package com.example.chatease.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -34,15 +35,13 @@ class ForgetPasswordActivity : AppCompatActivity() {
         binding.forgetPasswordButton.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             binding.forgetPasswordButton.visibility = View.INVISIBLE
-            if (binding.textInputEmail.text.toString().trim() != null) {
-                if(Patterns.EMAIL_ADDRESS.matcher(binding.textInputEmail.text.toString()).matches()){
-                    forgotPassword()
-                }
-                else{
-                    binding.textInputLayoutEmail.error = "Enter Valid Email"
-                    binding.progressBar.visibility = View.GONE
-                    binding.forgetPasswordButton.visibility = View.VISIBLE
-                }
+            if(Patterns.EMAIL_ADDRESS.matcher(binding.textInputEmail.text.toString()).matches()){
+                forgotPassword()
+            }
+            else{
+                binding.textInputLayoutEmail.error = "Enter Valid Email"
+                binding.progressBar.visibility = View.GONE
+                binding.forgetPasswordButton.visibility = View.VISIBLE
             }
         }
 

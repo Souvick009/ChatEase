@@ -154,7 +154,6 @@ class GroupParticipantsActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    Log.v("participant", adapter.getSelectedParticipantsSet().toString())
                     val intent =
                         Intent(this@GroupParticipantsActivity, GroupCreationActivity::class.java)
                     intent.putStringArrayListExtra(

@@ -66,8 +66,7 @@ class SearchActivity : AppCompatActivity() {
 
             val params = recyclerView.layoutParams
             private fun updateBackground() {
-                Log.d("background", "yes")
-                if (searchUserList.size == 0) {
+                if (searchUserList.isEmpty()) {
                     params.height = ViewGroup.LayoutParams.MATCH_PARENT
                     recyclerView.layoutParams = params
                     recyclerView.setBackgroundColor(Color.TRANSPARENT)

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -14,6 +16,7 @@ android {
 
     packaging {
         resources.excludes.add("META-INF/DEPENDENCIES")
+        resources.excludes.add("META-INF/INDEX.LIST")
     }
 
     defaultConfig {
@@ -22,6 +25,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        ndkVersion = "25.2.9519653"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,8 +44,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
     }
 }
 
@@ -73,20 +80,20 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // Native version of uCrop (Image Cropping Library for Android) for enhanced image quality
-    implementation("com.github.yalantis:ucrop:2.2.8-native")
+    implementation("com.github.yalantis:ucrop:2.2.10")
 
     // Libraries of LifeCycle Observer
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1") // For Latest versions
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1") // For Latest versions
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0") // For older versions
 
     // For handling FCM OAuth Key Registration and Regeneration
-    implementation("com.google.auth:google-auth-library-oauth2-http:1.11.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.37.1")
 
     // For handling HTTP requests
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:okhttp:5.1.0")
 
     // Material UI Components
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.12.0")
 
     //For Implementing Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")

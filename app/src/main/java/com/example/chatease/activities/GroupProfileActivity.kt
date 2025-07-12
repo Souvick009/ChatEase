@@ -93,14 +93,11 @@ class GroupProfileActivity : AppCompatActivity() {
 
     private var menuVisibilityStatus = false
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        Log.w("menu_visible 0", menu?.findItem(R.id.settingsIcon)?.isVisible.toString() + " " + menuVisibilityStatus.toString())
         menu?.findItem(R.id.settingsIcon)?.isVisible = menuVisibilityStatus
-        Log.w("menu_visible 2", menu?.findItem(R.id.settingsIcon)?.isVisible.toString())
         return super.onPrepareOptionsMenu(menu)
     }
 
     private fun menuVisibility(boolean: Boolean) {
-        Log.w("menu_visible", boolean.toString())
         menuVisibilityStatus = boolean
         invalidateOptionsMenu()
     }
@@ -257,7 +254,6 @@ class GroupProfileActivity : AppCompatActivity() {
                 .addOnSuccessListener { snapshot ->
                     for (participant in snapshot.children) {
                         participant.key?.let {
-                            Log.w("called", "fetchUserData : $it")
                             fetchUserData(
                                 currentUserID = currentUserID,
                                 participantID = it,
@@ -330,10 +326,6 @@ class GroupProfileActivity : AppCompatActivity() {
                             if (userData.userID == currentUserID) {
                                 currentUserInParticipantList.add(userData)
                             } else {
-                                Log.w(
-                                    "userData lexicographicallySortedList",
-                                    lexicographicallySortedList.toString()
-                                )
                                 val insertIndex = lexicographicallySortedList.binarySearch {
                                     it.displayName.compareTo(userData.displayName)
                                 }
@@ -345,10 +337,6 @@ class GroupProfileActivity : AppCompatActivity() {
                                         }
                                     }
                                 lexicographicallySortedList.add(insertIndex, userData)
-                                Log.v(
-                                    "userData Insertion",
-                                    "lexicographicallySortedList.add : $insertIndex"
-                                )
                             }
                         }
                     }
@@ -382,7 +370,6 @@ class GroupProfileActivity : AppCompatActivity() {
                                     lexicographicallySortedList.clear()
                                 }
                             }
-                            Log.v("userData UPDATED & CLEARED", "UPDATED & CLEARED")
                             adapter.notifyDataSetChanged()
                             binding.textViewParticipantsCounter.text =
                                 "Participants - ${participantList.size}"

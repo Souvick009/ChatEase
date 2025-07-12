@@ -179,8 +179,6 @@ class FrndRequestResponseAdapter(
             suspendCancellableCoroutine { coroutine ->
                 if (usage == "Received") {
 
-                    Log.w("Accepted userDataList",userDataList.toString())
-                    Log.w("Accepted Position",position.toString())
 
                     rtDB.getReference("users/${userDataList[position].userID}/friends/requestSent/$currentUserID")
                         .removeValue()
