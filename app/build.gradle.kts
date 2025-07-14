@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -29,6 +30,14 @@ android {
         ndkVersion = "25.2.9519653"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    applicationVariants.all {
+       outputs.all {
+           val outputImpl = this as BaseVariantOutputImpl
+
+           outputImpl.outputFileName = "ChatEase"
+       }
     }
 
     buildTypes {
