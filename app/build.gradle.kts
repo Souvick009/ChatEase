@@ -36,7 +36,7 @@ android {
        outputs.all {
            val outputImpl = this as BaseVariantOutputImpl
 
-           outputImpl.outputFileName = "ChatEase"
+           outputImpl.outputFileName = "ChatEase.apk"
        }
     }
 
