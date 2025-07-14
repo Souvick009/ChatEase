@@ -97,4 +97,7 @@ dependencies {
 
     //For Implementing Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // For Implementing EncryptedSharedPreference for storing FCM Token
+    implementation("androidx.security:security-crypto:1.1.0-beta01")
 }

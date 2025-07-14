@@ -1,5 +1,9 @@
 package com.example.chatease.trackers
 
+import android.util.Log
+import androidx.core.content.edit
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -21,10 +25,20 @@ class FCMMessageService : FirebaseMessagingService() {
     }
 
     override fun onNewToken(token: String) {
-        val currentFCMUserToken = getSharedPreferences("CurrentUserMetaData", MODE_PRIVATE).getString(
-            "FCMUserToken",
-            null
-        )
+        val masterKey = MasterKey.Builder(applicationContext)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+
+        val encryptedSharedPref = EncryptedSharedPreferences.create(applicationContext,"EncryptedCurrentUserMetaData",masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM)
+
+        val currentFCMUserToken = encryptedSharedPref.getString("FCMUserToken",null)
+
+//        val currentFCMUserToken = getSharedPreferences("CurrentUserMetaData", MODE_PRIVATE).getString(
+//            "FCMUserToken",
+//            null
+//        )
 
         if (currentFCMUserToken != token) {
             FirebaseAuth.getInstance().currentUser?.let { currentUser ->
@@ -33,7 +47,11 @@ class FCMMessageService : FirebaseMessagingService() {
                         "FCMUserToken" to token
                     )
                 ).addOnSuccessListener {
-                    getSharedPreferences("CurrentUserMetaData", MODE_PRIVATE).edit().putString("FCMUserToken", token).apply()
+                    encryptedSharedPref.edit{
+                        putString("FCMUserToken",token)
+                        apply()
+                    }
+//                    getSharedPreferences("CurrentUserMetaData", MODE_PRIVATE).edit().putString("FCMUserToken", token).apply()
                 }
             }
 

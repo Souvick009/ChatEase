@@ -91,8 +91,6 @@
                     app:layout_constraintVertical_bias="0.5" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
-
-
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -100,7 +98,6 @@
         android:id="@+id/recyclerViewCurrentChat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="192dp"
         app:layout_constraintBottom_toTopOf="@id/chatInputCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chatActivityToolbar"

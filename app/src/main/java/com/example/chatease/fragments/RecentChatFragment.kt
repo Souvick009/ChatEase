@@ -18,6 +18,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
+import androidx.security.crypto.MasterKeys
 import com.example.chatease.R
 import com.example.chatease.activities.SearchActivity
 import com.example.chatease.adapters_recyclerview.RecentChatAdapter
@@ -36,6 +39,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import androidx.core.content.edit
 
 class RecentChatFragment : Fragment() {
     // View binding for accessing layout elements
@@ -69,9 +73,20 @@ class RecentChatFragment : Fragment() {
 
         requestPostNotificationPermission()
 
-        val currentFCMUserToken = requireContext().getSharedPreferences("CurrentUserMetaData", MODE_PRIVATE).getString(
-            "FCMUserToken", null
-        )
+        val masterKey = MasterKey.Builder(requireContext())
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+
+        val encryptedSharedPref = EncryptedSharedPreferences
+            .create(requireContext(),"EncryptedCurrentUserMetaData",masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM)
+
+
+        val currentFCMUserToken = encryptedSharedPref.getString("FCMUserToken",null)
+//        val currentFCMUserToken = requireContext().getSharedPreferences("CurrentUserMetaData", MODE_PRIVATE).getString(
+//            "FCMUserToken", null
+//        )
 
         CoroutineScope(Dispatchers.IO).launch {
             FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
@@ -84,8 +99,15 @@ class RecentChatFragment : Fragment() {
                                 )
                             ).addOnCompleteListener { task1 ->
                                 if (task1.isSuccessful) {
-                                    requireContext().getSharedPreferences("CurrentUserMetaData", MODE_PRIVATE).edit()
-                                        .putString("FCMUserToken", task.result).apply()
+                                    encryptedSharedPref.edit {
+                                        putString(
+                                            "FCMUserToken",
+                                            task.result
+                                        )
+                                        apply()
+                                    }
+//                                    requireContext().getSharedPreferences("CurrentUserMetaData", MODE_PRIVATE).edit()
+//                                        .putString("FCMUserToken", task.result).apply()
                                 }
                             }
                         }
